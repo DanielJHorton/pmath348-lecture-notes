@@ -1,0 +1,233 @@
+\ProvidesPackage{dhortthms}
+\usepackage{amsmath,amsfonts,amsthm}
+\usepackage{color,xcolor}
+\usepackage{changepage}
+\usepackage{tikz}
+\usepackage[framemethod=TikZ]{mdframed}
+
+% -----------------------------------------------------------
+%                        amsthm styles
+% -----------------------------------------------------------
+% Notes and remarks use amsthmstyle2
+% Everything else uses amsthmstyle1
+
+% ---------------- Theorem Style Definitions ----------------
+% AMS Theorem Style 1:
+\newtheoremstyle
+    {amsthmstyle1}% name
+    {3pt}% Space above
+    {3pt}% Space below
+    {}% Body font
+    {}% Indent amount
+    {\bfseries}% Theorem head font
+    {:}% Punctuation after theorem head
+    {.5em}% Space after theorem head
+    {}% Theorem head spec (can be left empty, meaning ‘normal’)
+% AMS Theorem Stlye 2:
+\newtheoremstyle
+    {amsthmstyle2}% name
+    {3pt}% Space above
+    {3pt}% Space below
+    {}% Body font
+    {}% Indent amount
+    {\itshape}% Theorem head font
+    {:}% Punctuation after theorem head
+    {.5em}% Space after theorem head
+    {}% Theorem head spec (can be left empty, meaning ‘normal’)
+
+% ----------------- Environment Definitions -----------------
+% Theorem Stlye 1:
+\theoremstyle{amsthmstyle1}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{claim}{Claim}[theorem]
+\newtheorem{corollary}[claim]{Corollary}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{notation}[definition]{Notation}
+\newtheorem{example}{Example}[section]
+% Theorem Style 2:
+\theoremstyle{amsthmstyle2}
+\newtheorem*{remark}{Remark}
+\newtheorem*{note}{Note}
+\newtheorem*{question}{Question}
+
+
+
+
+
+% -----------------------------------------------------------
+%                       mdframed styles
+% -----------------------------------------------------------
+% Colour Legend:
+% | Colour | Interpretation | Uses ordered by decreasing importance  |
+% | Blue   | Major Result   | Theorems, Propositions, Lemmas, Claims |
+% | Green  | Follow Up      | Corollaries, Examples, Notes, Remarks  |
+% | Red    | Presumption    | Axioms, Definitions, Notations         |
+
+% Colours taken from https://latexcolor.com
+\definecolor{mediumpersianblue}{rgb}{0.0, 0.4, 0.65}
+\definecolor{limegreen}{rgb}{0.2, 0.8, 0.2}
+\definecolor{orange-red}{rgb}{1.0, 0.27, 0.0}
+\definecolor{cadmiumred}{rgb}{0.89, 0.0, 0.13}
+
+% coloura is the border colour, colourb will be set to 20% opacity
+% and become the background colour.
+\def\resultcoloura{blue}
+\def\resultcolourb{blue}
+\def\followupcoloura{limegreen}
+\def\followupcolourb{limegreen}
+\def\presumptioncoloura{cadmiumred}
+\def\presumptioncolourb{cadmiumred}
+
+% ---------------------- Major Results ----------------------
+% Theorems:
+\mdfdefinestyle{thmframe}{
+    backgroundcolor=\resultcolourb!20,
+    linecolor=\resultcoloura,
+    linewidth=3pt,%
+    nobreak=true
+}
+\mdfapptodefinestyle{thmframe}{
+    topline=false,
+    bottomline=false
+}
+\surroundwithmdframed[style=thmframe]{theorem}
+% Propositions:
+\mdfdefinestyle{propframe}{
+    backgroundcolor=\resultcolourb!20,
+    linecolor=\resultcoloura,
+    linewidth=3pt,%
+    nobreak=true
+}
+\mdfapptodefinestyle{propframe}{
+    topline=false,
+    rightline=false,
+    bottomline=false
+}
+\surroundwithmdframed[style=propframe]{proposition}
+% Lemmas:
+\mdfdefinestyle{lemmaframe}{
+    backgroundcolor=\resultcolourb!20,
+    linecolor=\resultcoloura,
+    linewidth=0pt,%
+    nobreak=true
+}
+%\mdfapptodefinestyle{lemmaframe}{
+%    topline=false,
+%    bottomline=false
+%}
+\surroundwithmdframed[style=lemmaframe]{lemma}
+% Claims:
+\mdfdefinestyle{claimframe}{
+    %backgroundcolor=\resultcolourb!20,
+    linecolor=\resultcoloura,
+    linewidth=3pt,%
+    nobreak=true
+}
+\mdfapptodefinestyle{claimframe}{
+    topline=false,
+    rightline=false,
+    bottomline=false
+}
+\surroundwithmdframed[style=claimframe]{claim}
+
+% ------------------------ Follow Ups ------------------------
+% Corollaries
+\mdfdefinestyle{coroframe}{
+    backgroundcolor=\followupcolourb!20,
+    linecolor=\followupcoloura,
+    linewidth=3pt,%
+    nobreak=true
+}
+\mdfapptodefinestyle{coroframe}{
+    topline=false,
+    bottomline=false
+}
+\surroundwithmdframed[style=coroframe]{corollary}
+% Examples:
+\mdfdefinestyle{examframe}{
+    backgroundcolor=\followupcolourb!20,
+    linecolor=\followupcoloura,
+    linewidth=3pt,%
+    nobreak=true
+}
+\mdfapptodefinestyle{examframe}{
+    topline=false,
+    rightline=false,
+    bottomline=false
+}
+\surroundwithmdframed[style=examframe]{example}
+% Notes:
+\mdfdefinestyle{noteframe}{
+    backgroundcolor=\followupcolourb!20,
+    linecolor=\followupcoloura,
+    linewidth=0pt,%
+    nobreak=true
+}
+%\mdfapptodefinestyle{noteframe}{
+%    topline=false,
+%    bottomline=false
+%}
+\surroundwithmdframed[style=noteframe]{note}
+% Remarks:
+\mdfdefinestyle{remarkframe}{
+    %backgroundcolor=\followupcolourb!20,
+    linecolor=\followupcoloura,
+    linewidth=3pt,%
+    nobreak=true
+}
+\mdfapptodefinestyle{remarkframe}{
+    topline=false,
+    rightline=false,
+    bottomline=false
+}
+\surroundwithmdframed[style=remarkframe]{remark}
+
+% ------------------------ Pesumptions ------------------------
+% Axioms:
+\mdfdefinestyle{axiomframe}{
+    backgroundcolor=\presumptioncolourb!20,
+    linecolor=\presumptioncoloura,
+    linewidth=3pt,%
+    nobreak=true
+}
+\mdfapptodefinestyle{axiomframe}{
+    topline=false,
+    bottomline=false
+}
+\surroundwithmdframed[style=axiomframe]{axiom}
+% Definitions:
+\mdfdefinestyle{defframe}{
+    backgroundcolor=\presumptioncolourb!20,
+    linecolor=\presumptioncoloura,
+    linewidth=3pt,%
+    nobreak=true
+}
+\mdfapptodefinestyle{defframe}{
+    topline=false,
+    rightline=false,
+    bottomline=false
+}
+\surroundwithmdframed[style=defframe]{definition}
+% Notations:
+\mdfdefinestyle{notaframe}{
+    backgroundcolor=\presumptioncolourb!20,
+    linecolor=\presumptioncoloura,
+    linewidth=0pt,%
+    nobreak=true
+}
+%\mdfapptodefinestyle{notaframe}{
+%    topline=false,
+%    bottomline=false
+%}
+\surroundwithmdframed[style=notaframe]{notation}
+
+
+% -----------------------------------------------------------
+%                     Other Environments
+% -----------------------------------------------------------
+% Center and emph with wider margins
+\newenvironment{centeremph}[1][100pt]
+    {\vspace{3pt}\begin{adjustwidth}{#1}{#1}\begin{center}\itshape}
+    {\end{center}\end{adjustwidth}\vspace{3pt}}
